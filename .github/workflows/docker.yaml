@@ -1,4 +1,4 @@
-name: PGBouncer
+name: Build docker image
 
 on:
   push:
