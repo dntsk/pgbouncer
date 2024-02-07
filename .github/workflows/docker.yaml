@@ -29,7 +29,7 @@ jobs:
       - name: Get PGBouncer version
         id: variables
         run: |
-          echo "pgversion=$(cat Dockerfile | grep pgbouncer.github.io | awk -F/ '{print $6}')" >> $GITHUB_OUTPUT
+          echo "pgversion=$(cat Dockerfile | grep 'PGBOUNCER_VERSION=' | awk -F= '{print $2}' | tr -d '\"')" >> $GITHUB_OUTPUT
 
       - name: Check new version
         run:
