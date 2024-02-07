@@ -1,8 +1,6 @@
 name: Build docker image
 
 on:
-  schedule:
-    - cron:  '0 0 1 * *'
   push:
     branches:
       - 'master'
@@ -36,6 +34,6 @@ jobs:
         with:
           provenance: false
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: dntskdev/pgbouncer:${{ steps.variables.outputs.pgversion }}
