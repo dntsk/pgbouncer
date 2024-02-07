@@ -1,0 +1,42 @@
+name: PGBouncer
+
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'pgbouncer/**'
+      - '.github/workflows/pgbouncer.yaml'
+
+jobs:
+  Build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Get PGBouncer version
+        id: variables
+        run: |
+          echo "pgversion=$(cat Dockerfile | grep pgbouncer.github.io | awk -F/ '{print $6}')" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          provenance: false
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: dntskdev/pgbouncer:${{ steps.variables.outputs.pgversion }}
