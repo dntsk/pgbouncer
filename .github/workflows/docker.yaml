@@ -1,6 +1,8 @@
 name: Build docker image
 
 on:
+  schedule:
+    - cron:  '0 0 1 * *'
   push:
     branches:
       - 'master'
@@ -31,6 +33,10 @@ jobs:
         id: variables
         run: |
           echo "pgversion=$(cat Dockerfile | grep pgbouncer.github.io | awk -F/ '{print $6}')" >> $GITHUB_OUTPUT
+
+      - name: Check new version
+        run:
+          ./check_version.sh
 
       - name: Build and push
         uses: docker/build-push-action@v4

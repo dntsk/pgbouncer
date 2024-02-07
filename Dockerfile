@@ -1,10 +1,9 @@
-
 FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-LABEL org.opencontainers.image.version="1.22.0" \
-      org.opencontainers.image.ref.name="1.22.0" \
+LABEL org.opencontainers.image.version="1.21.0" \
+      org.opencontainers.image.ref.name="1.21.0" \
       org.opencontainers.image.title="pgbouncer" \
       org.opencontainers.image.description="PGBouncer application" \
       org.opencontainers.image.base.name="debian:bookworm-sim" \
@@ -32,7 +31,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     make && make install && \
     ln -s /usr/local/lib/libevent-2.1.so.7 /usr/lib/libevent-2.1.so.7 && \
     rm -rf /tmp/* && \
-    wget -q https://pgbouncer.github.io/downloads/files/1.22.0/pgbouncer-1.22.0.tar.gz -O /tmp/pgbouncer.tar.gz && \
+    wget -q https://pgbouncer.github.io/downloads/files/1.21.0/pgbouncer-1.21.0.tar.gz -O /tmp/pgbouncer.tar.gz && \
     cd /tmp && \
     tar zxf pgbouncer.tar.gz && \
     cd pgbouncer-* && \
