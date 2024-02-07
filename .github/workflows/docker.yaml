@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - 'master'
-    paths:
-      - 'pgbouncer/**'
-      - '.github/workflows/pgbouncer.yaml'
 
 jobs:
   Build:
