@@ -2,7 +2,7 @@
 FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PGBOUNCER_VERSION="1.21.0"
+ENV PGBOUNCER_VERSION="1.22.0"
 
 LABEL org.opencontainers.image.version="${PGBOUNCER_VERSION}" \
       org.opencontainers.image.ref.name="${PGBOUNCER_VERSION}" \

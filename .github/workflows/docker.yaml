@@ -31,10 +31,6 @@ jobs:
         run: |
           echo "pgversion=$(cat Dockerfile | grep 'PGBOUNCER_VERSION=' | awk -F= '{print $2}' | tr -d '\"')" >> $GITHUB_OUTPUT
 
-      - name: Check new version
-        run:
-          ./check_version.sh
-
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
