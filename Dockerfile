@@ -1,9 +1,11 @@
+
 FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PGBOUNCER_VERSION="1.21.0"
 
-LABEL org.opencontainers.image.version="1.21.0" \
-      org.opencontainers.image.ref.name="1.21.0" \
+LABEL org.opencontainers.image.version="${PGBOUNCER_VERSION}" \
+      org.opencontainers.image.ref.name="${PGBOUNCER_VERSION}" \
       org.opencontainers.image.title="pgbouncer" \
       org.opencontainers.image.description="PGBouncer application" \
       org.opencontainers.image.base.name="debian:bookworm-sim" \
@@ -16,7 +18,7 @@ WORKDIR /tmp
 EXPOSE 6432
 RUN useradd -ms /bin/false postgres
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+RUN apt-get update && \
     apt-get -y install libpq-dev libcurl4-openssl-dev libssl-dev zlib1g-dev pkg-config gettext-base build-essential make git wget curl unzip && \
     rm -rf /tmp/* && \
     echo "deb http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
@@ -31,7 +33,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
     make && make install && \
     ln -s /usr/local/lib/libevent-2.1.so.7 /usr/lib/libevent-2.1.so.7 && \
     rm -rf /tmp/* && \
-    wget -q https://pgbouncer.github.io/downloads/files/1.21.0/pgbouncer-1.21.0.tar.gz -O /tmp/pgbouncer.tar.gz && \
+    wget -q https://pgbouncer.github.io/downloads/files/${PGBOUNCER_VERSION}/pgbouncer-${PGBOUNCER_VERSION}.tar.gz -O /tmp/pgbouncer.tar.gz && \
     cd /tmp && \
     tar zxf pgbouncer.tar.gz && \
     cd pgbouncer-* && \
