@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.version="${PGBOUNCER_VERSION}" \
       org.opencontainers.image.ref.name="${PGBOUNCER_VERSION}" \
       org.opencontainers.image.title="pgbouncer" \
       org.opencontainers.image.description="PGBouncer application" \
-      org.opencontainers.image.base.name="debian:bookworm-sim" \
+      org.opencontainers.image.base.name="debian:bookworm-slim" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.vendor="DNTSK" \
       org.opencontainers.image.authors="info@dntsk.dev" \
@@ -18,7 +18,7 @@ WORKDIR /tmp
 EXPOSE 6432
 RUN useradd -ms /bin/false postgres
 
-RUN apt-get update && \
+RUN apt-get update && apt-get dist-upgrade --yes && \
     apt-get -y install libpq-dev libcurl4-openssl-dev libssl-dev zlib1g-dev pkg-config gettext-base build-essential make git wget curl unzip && \
     rm -rf /tmp/* && \
     echo "deb http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
